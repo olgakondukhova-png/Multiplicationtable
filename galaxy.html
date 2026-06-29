@@ -151,10 +151,30 @@ html, body {
 
 /* ── GRID OF PLANETS ── */
 .planets-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+.block-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.planets-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  position: relative; z-index: 1;
+  justify-content: center;
+  align-items: flex-start;
+}
+.planets-row .planet-card {
+  flex: 0 0 auto;
+  width: calc(33.333% - 12px);
+  min-width: 120px;
+  max-width: 180px;
 }
 
 /* ── PLANET CARD ── */
@@ -203,6 +223,13 @@ html, body {
   cursor: not-allowed; opacity: 0.55;
 }
 .planet-card.locked:hover { transform: none; box-shadow: none; }
+.planet-card.planet-final {
+  border-color: rgba(255,215,0,0.5);
+  background: linear-gradient(135deg, #2a2a1a, #1a1a4e);
+  box-shadow: 0 0 20px rgba(255,215,0,0.2);
+}
+.planet-card.planet-final .planet-name { color: var(--gold); font-size: 13px; }
+.planet-card.planet-final .planet-emoji { font-size: 36px; }
 
 .planet-emoji { font-size: clamp(28px, 5vw, 42px); line-height: 1; }
 .planet-num {
@@ -228,7 +255,6 @@ html, body {
 
 /* BLOCK LABEL */
 .block-label {
-  grid-column: 1 / -1;
   display: flex; align-items: center; gap: 10px;
   padding: 6px 0 2px;
 }
@@ -333,7 +359,7 @@ html, body {
 <!-- HEADER -->
 <header class="header">
   <div class="header-inner">
-    <div class="header-logo">🚀 Академия</div>
+    <div class="header-logo">🚀 Академия Умножения</div>
     <div class="header-player" id="headerPlayer">💫 Новобранец</div>
     <div class="header-spacer"></div>
     <div class="header-crystals" id="headerCrystals">💎 0</div>
@@ -370,15 +396,18 @@ html, body {
 
   <div class="galaxy-map" id="galaxyMap">
     <div class="planets-grid" id="planetsGrid">
-      <!-- Блок 1: СТАРТ -->
+    <!-- Блок 1 -->
+    <div class="block-section">
       <div class="block-label block-1">
         <div class="block-label-line"></div>
         <div class="block-label-text">🟢 Блок 1 — Старт</div>
         <div class="block-label-line"></div>
       </div>
-
-      <!-- Уроки 1-3 + Планета 0 -->
-      <div class="planet-card" id="planet-0" tabindex="0" role="button" onclick="handlePlanetClick(0)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(0)" aria-label="Урок 1: Добро пожаловать">
+      <div class="planets-row">
+      <div class="planet-card" id="planet-0" tabindex="0" role="button"
+        onclick="handlePlanetClick(0)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(0)"
+        aria-label="Урок 1: Планета Ноль">
         <div class="planet-emoji">🌑</div>
         <div class="planet-num">Урок 1</div>
         <div class="planet-name">Планета Ноль</div>
@@ -386,8 +415,10 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-0"></div>
       </div>
-
-      <div class="planet-card" id="planet-1" tabindex="0" role="button" onclick="handlePlanetClick(1)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(1)" aria-label="Урок 2: Планета Двоек">
+      <div class="planet-card" id="planet-1" tabindex="0" role="button"
+        onclick="handlePlanetClick(1)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(1)"
+        aria-label="Урок 2: Планета Двоек">
         <div class="planet-emoji">🌍</div>
         <div class="planet-num">Урок 2</div>
         <div class="planet-name">Планета Двоек</div>
@@ -395,8 +426,10 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-1"></div>
       </div>
-
-      <div class="planet-card" id="planet-2" tabindex="0" role="button" onclick="handlePlanetClick(2)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(2)" aria-label="Урок 3: Планета Пятёрок">
+      <div class="planet-card" id="planet-2" tabindex="0" role="button"
+        onclick="handlePlanetClick(2)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(2)"
+        aria-label="Урок 3: Планета Пятёрок">
         <div class="planet-emoji">🔴</div>
         <div class="planet-num">Урок 3</div>
         <div class="planet-name">Планета Пятёрок</div>
@@ -404,18 +437,20 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-2"></div>
       </div>
-
-      <!-- spacer -->
-      <div></div>
-
-      <!-- Блок 2: РАЗГОН -->
+      </div>
+    </div>
+    <!-- Блок 2 -->
+    <div class="block-section">
       <div class="block-label block-2">
         <div class="block-label-line"></div>
         <div class="block-label-text">🟣 Блок 2 — Разгон</div>
         <div class="block-label-line"></div>
       </div>
-
-      <div class="planet-card" id="planet-3" tabindex="0" role="button" onclick="handlePlanetClick(3)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(3)" aria-label="Урок 4: Планета Троек">
+      <div class="planets-row">
+      <div class="planet-card" id="planet-3" tabindex="0" role="button"
+        onclick="handlePlanetClick(3)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(3)"
+        aria-label="Урок 4: Планета Троек">
         <div class="planet-emoji">💛</div>
         <div class="planet-num">Урок 4</div>
         <div class="planet-name">Планета Троек</div>
@@ -423,8 +458,10 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-3"></div>
       </div>
-
-      <div class="planet-card" id="planet-4" tabindex="0" role="button" onclick="handlePlanetClick(4)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(4)" aria-label="Урок 5: Планета Четвёрок">
+      <div class="planet-card" id="planet-4" tabindex="0" role="button"
+        onclick="handlePlanetClick(4)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(4)"
+        aria-label="Урок 5: Планета Четвёрок">
         <div class="planet-emoji">🟠</div>
         <div class="planet-num">Урок 5</div>
         <div class="planet-name">Планета Четвёрок</div>
@@ -432,24 +469,31 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-4"></div>
       </div>
-
-      <div class="planet-card" id="planet-5" tabindex="0" role="button" onclick="handlePlanetClick(5)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(5)" aria-label="Урок 6: Планета Шестёрок">
+      <div class="planet-card" id="planet-5" tabindex="0" role="button"
+        onclick="handlePlanetClick(5)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(5)"
+        aria-label="Урок 6: Планета Шестерёнок">
         <div class="planet-emoji">🟢</div>
         <div class="planet-num">Урок 6</div>
-        <div class="planet-name">Планета Шестёрок</div>
+        <div class="planet-name">Планета Шестерёнок</div>
         <div class="planet-table">×6</div>
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-5"></div>
       </div>
-
-      <!-- Блок 3: ВПЕРЁД -->
+      </div>
+    </div>
+    <!-- Блок 3 -->
+    <div class="block-section">
       <div class="block-label block-3">
         <div class="block-label-line"></div>
-        <div class="block-label-text">🔥 Блок 3 — Вперёд</div>
+        <div class="block-label-text">🔵 Блок 3 — Вперёд</div>
         <div class="block-label-line"></div>
       </div>
-
-      <div class="planet-card" id="planet-6" tabindex="0" role="button" onclick="handlePlanetClick(6)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(6)" aria-label="Урок 7: Планета Семёрок">
+      <div class="planets-row">
+      <div class="planet-card" id="planet-6" tabindex="0" role="button"
+        onclick="handlePlanetClick(6)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(6)"
+        aria-label="Урок 7: Планета Семёрок">
         <div class="planet-emoji">🔵</div>
         <div class="planet-num">Урок 7</div>
         <div class="planet-name">Планета Семёрок</div>
@@ -457,8 +501,10 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-6"></div>
       </div>
-
-      <div class="planet-card" id="planet-7" tabindex="0" role="button" onclick="handlePlanetClick(7)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(7)" aria-label="Урок 8: Планета Восьмёрок">
+      <div class="planet-card" id="planet-7" tabindex="0" role="button"
+        onclick="handlePlanetClick(7)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(7)"
+        aria-label="Урок 8: Планета Восьмёрок">
         <div class="planet-emoji">🟣</div>
         <div class="planet-num">Урок 8</div>
         <div class="planet-name">Планета Восьмёрок</div>
@@ -466,8 +512,10 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-7"></div>
       </div>
-
-      <div class="planet-card" id="planet-8" tabindex="0" role="button" onclick="handlePlanetClick(8)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(8)" aria-label="Урок 9: Планета Девяток">
+      <div class="planet-card" id="planet-8" tabindex="0" role="button"
+        onclick="handlePlanetClick(8)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(8)"
+        aria-label="Урок 9: Планета Девяток">
         <div class="planet-emoji">🌟</div>
         <div class="planet-num">Урок 9</div>
         <div class="planet-name">Планета Девяток</div>
@@ -475,47 +523,35 @@ html, body {
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-8"></div>
       </div>
-
-      <!-- Блок 4: МАСТЕРСТВО -->
+      </div>
+    </div>
+    <!-- Блок 4 -->
+    <div class="block-section">
       <div class="block-label block-4">
         <div class="block-label-line"></div>
         <div class="block-label-text">🏆 Блок 4 — Мастерство</div>
         <div class="block-label-line"></div>
       </div>
-
-      <div class="planet-card" id="planet-9" tabindex="0" role="button" onclick="handlePlanetClick(9)" onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(9)" aria-label="Урок 10: Планета Одиннашек">
-        <div class="planet-emoji">⭐</div>
+      <div class="planets-row">
+      <div class="planet-card planet-final" id="planet-9" tabindex="0" role="button"
+        onclick="handlePlanetClick(9)"
+        onkeydown="if(event.key==='Enter'||event.key===' ')handlePlanetClick(9)"
+        aria-label="Урок 10: Финальная Проверка">
+        <div class="planet-emoji">🏆</div>
         <div class="planet-num">Урок 10</div>
-        <div class="planet-name">Планета Одиннашек</div>
-        <div class="planet-table">×11</div>
+        <div class="planet-name">Финал</div>
+        <div class="planet-table">×1–×10</div>
         <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
         <div class="planet-badge" id="badge-9"></div>
       </div>
-
-      
-        <div class="planet-num">Урок 11</div>
-        <div class="planet-name">Планета Двенашек</div>
-        <div class="planet-table">×12</div>
-        <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
-        <div class="planet-badge" id="badge-10"></div>
       </div>
-
-      
-        <div class="planet-num">Урок 12</div>
-        <div class="planet-name">Финальный Экзамен</div>
-        <div class="planet-table">Все таблицы</div>
-        <div class="planet-stars"><span class="planet-star">⭐</span><span class="planet-star">⭐</span><span class="planet-star">⭐</span></div>
-        <div class="planet-badge" id="badge-11"></div>
-      </div>
-
-      <div></div>
     </div>
-  </div>
+    </div></div>
 
   <!-- БОНУСНЫЕ КАРТОЧКИ -->
   <div class="section-title" style="margin-top:32px">🎖 Мои достижения</div>
   <div class="bonus-cards">
-    <div class="bonus-card" onclick="window.location.href='profile.html'" role="link" tabindex="0" onkeydown="if(event.key==='Enter')window.location.href='profile.html'">
+    <div class="bonus-card" onclick="showProfileModal()" role="link" tabindex="0" onkeydown="if(event.key==='Enter')window.location.href='profile.html'">
       <div class="bonus-icon">👨‍🚀</div>
       <div class="bonus-info">
         <div class="bonus-title">Профиль Чемпиона</div>
@@ -532,6 +568,48 @@ html, body {
   </div>
 
 </main>
+
+<!-- Lesson Info Modal -->
+<div id="lessonInfoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
+  z-index:300;align-items:center;justify-content:center;padding:16px"
+  onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1A1A4E;border:1.5px solid rgba(91,79,207,.4);border-radius:20px;
+    padding:24px 22px;max-width:360px;width:100%;color:#fff">
+    <div style="font-size:22px;font-weight:900;margin-bottom:4px" id="liTitle">Урок</div>
+    <div style="font-size:14px;color:#A0A8D0;margin-bottom:16px" id="liTable"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
+      <div style="background:#22224E;border-radius:12px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:900;color:#4CAF50" id="liPct">0%</div>
+        <div style="font-size:11px;color:#888">точность</div>
+      </div>
+      <div style="background:#22224E;border-radius:12px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:900;color:#00D4FF" id="liCrystals">0 💎</div>
+        <div style="font-size:11px;color:#888">кристаллы</div>
+      </div>
+      <div style="background:#22224E;border-radius:12px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:900;color:#FFD700" id="liStars">⭐</div>
+        <div style="font-size:11px;color:#888">звёзды</div>
+      </div>
+    </div>
+    <button id="liReplayBtn" style="width:100%;padding:13px;margin-bottom:10px;
+      background:linear-gradient(135deg,#5B4FCF,#7B6FEF);border:none;border-radius:14px;
+      color:#fff;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit">
+      🔄 Пройти снова
+    </button>
+    <button onclick="document.getElementById('lessonInfoModal').style.display='none'"
+      style="width:100%;padding:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+      border-radius:14px;color:#A0A8D0;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">
+      Закрыть
+    </button>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:300;align-items:center;justify-content:center;padding:16px"
+  onclick="if(event.target===this)this.style.display='none'">
+  <div id="profileModalBody"></div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">
@@ -573,7 +651,7 @@ var LESSONS = [
   { id:6,  file:'lesson-07.html', name:'Планета Семёрок',    table:'×7',        emoji:'🔵', block:3 },
   { id:7,  file:'lesson-08.html', name:'Планета Восьмёрок',  table:'×8',        emoji:'🟣', block:3 },
   { id:8,  file:'lesson-09.html', name:'Планета Девяток',    table:'×9',        emoji:'🌟', block:3 },
-  { id:9,  file:'lesson-10.html', name:'🏆 Финальная Проверка', table:'×1–×10', emoji:'🏆', block:4 },
+  { id:9,  file:'lesson-10.html', name:'🏆 Финал — вся таблица', table:'×1–×10', emoji:'🏆', block:4 },
 ];
 
 var BLOCK_FINISH = { 1: 2, 2: 5, 3: 8, 4: 11 };  // последний урок блока (id)
@@ -743,16 +821,9 @@ function handlePlanetClick(id) {
   var current   = player.currentLesson || 1;
 
   if (completed.indexOf(lessonNum) !== -1) {
-    // Пройдена — показать результаты
-    var stats = player.lessonStats || {};
-    var st    = stats[lessonNum];
-    if (st) {
-      showToast('✅', lesson.name + ' — пройдено!',
-        'Результат: ' + st.correctPct + '% · ' + (st.crystals||0) + ' 💎');
-    } else {
-      showToast('✅', lesson.name, 'Урок уже пройден!');
-    }
+    // Пройдена — открываем снова! Кристаллы не обнуляются, а накапливаются
     setMultiText(MULTI_REPLIES.done(player.name));
+    showLessonInfo(id, true);
 
   } else if (lessonNum <= current) {
     // Открыта — переходим
@@ -831,6 +902,78 @@ function checkStreak() {
 }
 
 // ─── INIT ────────────────────────────────────────────────────
+function showProfileModal() {
+  var p = player || {};
+  var crystals = p.crystals || 0;
+  var rank = getRank(crystals);
+  var completed = (p.completedLessons || []).length;
+  var badges = (p.badges || []);
+  var streak = p.streak || 0;
+
+  var badgeList = [
+    ['badge_start','🥇 Старт дан!'],['badge_twos','✌️ Мастер Двоек'],
+    ['badge_fives','⭐ Мастер Пятёрок'],['badge_threes','🔺 Мастер Троек'],
+    ['badge_fours','🟠 Мастер Четвёрок'],['badge_sixes','⚙️ Мастер Шестёрок'],
+    ['badge_sevens','🌈 Мастер Семёрок'],['badge_eights','🔷 Мастер Восьмёрок'],
+    ['badge_nines','🖐️ Мастер Девяток'],['badge_champion','🏆 Чемпион'],
+  ];
+
+  var badgesHTML = badgeList.map(function(b) {
+    var earned = badges.indexOf(b[0]) !== -1;
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);opacity:'+(earned?'1':'.3')+'">'
+      +'<span style="font-size:20px">'+b[1].split(' ')[0]+'</span>'
+      +'<span style="font-size:13px;font-weight:700;color:'+(earned?'#fff':'#888')+'">'+b[1].slice(b[1].indexOf(' ')+1)+'</span>'
+      +(earned?'<span style="margin-left:auto;color:#4CAF50;font-size:12px">✅</span>':'')
+      +'</div>';
+  }).join('');
+
+  var html = '<div style="background:#1A1A4E;border-radius:20px;padding:24px;max-width:420px;margin:0 auto;color:#fff">'
+    +'<div style="text-align:center;margin-bottom:16px">'
+    +'<div style="font-size:48px;margin-bottom:8px">'+rank.icon+'</div>'
+    +'<div style="font-size:22px;font-weight:900">'+p.name+'</div>'
+    +'<div style="font-size:14px;color:#A0A8D0">'+rank.name+'</div>'
+    +'</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">'
+    +'<div style="background:#22224E;border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900;color:#00D4FF">💎 '+crystals.toLocaleString('ru')+'</div><div style="font-size:11px;color:#888">кристаллов</div></div>'
+    +'<div style="background:#22224E;border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900;color:#4CAF50">'+completed+'/10</div><div style="font-size:11px;color:#888">уроков</div></div>'
+    +'<div style="background:#22224E;border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:900;color:#FFD700">'+streak+'</div><div style="font-size:11px;color:#888">дней подряд</div></div>'
+    +'</div>'
+    +'<div style="font-size:13px;font-weight:800;color:#7B6FEF;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">🏅 Значки</div>'
+    +'<div style="max-height:220px;overflow-y:auto">'+badgesHTML+'</div>'
+    +'<button onclick="document.getElementById(\'profileModal\').style.display=\'none\'" '
+    +'style="width:100%;margin-top:16px;padding:12px;background:linear-gradient(135deg,#5B4FCF,#7B6FEF);border:none;border-radius:14px;color:#fff;font-weight:800;font-size:16px;cursor:pointer">Закрыть</button>'
+    +'</div>';
+
+  var modal = document.getElementById('profileModal');
+  document.getElementById('profileModalBody').innerHTML = html;
+  modal.style.display = 'flex';
+}
+
+function showLessonInfo(id, canReplay) {
+  var lesson = LESSONS[id];
+  var lessonNum = id + 1;
+  var stats = (player.lessonStats || {})[lessonNum];
+  var crystals = stats ? (stats.crystals || 0) : 0;
+  var pct = stats ? (stats.correctPct || 0) : 0;
+  var stars = pct >= 90 ? '⭐⭐⭐' : pct >= 70 ? '⭐⭐' : '⭐';
+
+  var modal = document.getElementById('lessonInfoModal');
+  document.getElementById('liTitle').textContent = lesson.emoji + ' ' + lesson.name;
+  document.getElementById('liTable').textContent = 'Таблица ' + lesson.table;
+  document.getElementById('liPct').textContent = pct + '%';
+  document.getElementById('liCrystals').textContent = crystals + ' 💎';
+  document.getElementById('liStars').textContent = stars;
+
+  var replayBtn = document.getElementById('liReplayBtn');
+  if (canReplay) {
+    replayBtn.style.display = 'block';
+    replayBtn.onclick = function() { window.location.href = lesson.file; };
+  } else {
+    replayBtn.style.display = 'none';
+  }
+  modal.style.display = 'flex';
+}
+
 function init() {
   if (!loadPlayer()) return;
 
