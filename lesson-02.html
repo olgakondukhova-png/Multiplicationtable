@@ -1267,7 +1267,7 @@ function buildLifehackQuestions(){
       +q.q+' (используй '+q.q.split(' ')[0]+'+'+q.q.split(' ')[0]+')</div>'
       +'<div style="display:flex;gap:8px;align-items:center">'
       +'<input type="number" id="lhi-'+i+'" class="answer-input" style="font-size:22px;padding:10px" placeholder="?" inputmode="numeric" '
-      +'onkeydown="if(event.key===\'Enter\')checkLH('+i+')">'
+      +'>'
       +'<button class="btn btn-primary btn-sm" onclick="checkLH('+i+')">✓</button>'
       +'</div>'
       +'<div class="feedback-line" id="lhf-'+i+'"></div>';
@@ -1287,10 +1287,11 @@ function checkLH(i){
     addCrystals(10,rect.left+rect.width/2,rect.top);
     setFeedback('lhf-'+i,'✅ '+q.q+' = '+q.a+'! Правильно! +10 💎','ok');
     lhIdx++;
-    if(lhIdx<lhQuestions.length){
-      var next=document.getElementById('lhq-'+lhIdx);
+    var nextIdx=lhIdx;
+    if(nextIdx<lhQuestions.length){
+      var next=document.getElementById('lhq-'+nextIdx);
       if(next){next.style.opacity='1';next.style.pointerEvents='auto';
-        setTimeout(function(){document.getElementById('lhi-'+lhIdx).focus();},200);}
+        setTimeout(function(){document.getElementById('lhi-'+nextIdx).focus();},200);}
     } else {
       lhDone=true;
       document.getElementById('lifehackNextBtn').style.display='block';
